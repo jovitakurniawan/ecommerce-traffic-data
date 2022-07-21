@@ -46,74 +46,35 @@ Tools
 
 ### Task Breakdown
 
-1. Initialize variable<br/>  
-DIR="/Users/jkurniawan/sql-tugas4"<br/>  
-FILEID=1rKkUQU-sXIDka3rVNBahp6q3wDhrPY-1<br/>
-FILENAME="data.zip"<br/> 
-CLEAN_DATA="data/data_clean.csv"<br/> 
+1. Initialize variable
 
-2. Checking for project directory<br/>
-if [[ -d "$DIR" ]]; then<br/> 
-        echo "SQL Project 4 folder has been created"<br/>
-else<br/> 
-        echo "Not found - creating project folder"<br/>
-        mkdir /Users/jkurniawan/sql-tugas4<br/>
-fi<br/>   
+Query:
+<img src="img/quer1.png" width="1000"/>
+
+2. Checking for project directory
+
+Query:
+<img src="img/quer2.png" width="1000"/>
 
 3. Using "wget" to download sample data from google drive and "unzip" to extract csv files
 
 Query: Download Sample Data From Google Drive<br/>
+<img src="img/quer3.png" width="1000"/>
 
-if [[ -f "$DIR/data.zip" ]]; then<br/>
-        echo "Sample data has been downloaded from Google Drive"<br/>
-else<br/>
-        echo "Downloading sample data from Google Drive .."<br/>
-        wget -P $DIR --no-check-certificate --load-cookies /tmp/cookies.txt "https://drive.google.com/uc?export=download&confirm=true$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://drive.google.com/uc?export=download&id=$FILEID' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=$FILEID" -O $FILENAME && rm -rf /tmp/cookies.txt<br/>
-fi<br/>
+Query: Unzip files
+<img src="img/quer4.png" width="1000"/>
 
-Query: Unzip files<br/>
-if [[ -d "$DIR/data" ]];then <br/>
-        echo "Sample data has been unzipped"<br/>
-else <br/>
-        echo "Unziping sample data downloaded"<br/>
-        unzip $FILENAME -d $DIR <br/>
-        rm -f $DIR/data.zip <br/>
-        echo "Unzipping done - 2 csv sample data download into data folders"<br/>
-fi <br/>
+4. Cleaning Data
 
-4. Cleaning Data <br/>
-Query:<br/>
-if [[ -f "$DIR/$CLEAN_DATA" ]]; then<br/>
-        echo "Data has been cleaned - in this directory: $CLEAN_DATA"<br/>
-else <br/>
-        echo "Data has not been cleaned - cleaning data"<br/>
-        echo "Combining 2019 Oct and Nov sample data and filtering for purchase only"<br/>
-        csvstack $DIR/data/2019-Oct-sample.csv $DIR/data/2019-Nov-sample.csv | csvcut -c 2,3,4,5,7,8,6 | csvgrep -c 2 -m "purchase" > $DIR/combined.csv
-    echo "Spliting category_id into category and product_name"<br/>
-        csvcut -c 7 $DIR/combined.csv | grep -oE '^(\w+)' > $DIR/category.csv<br/>
-        csvcut -c 7 $DIR/combined.csv | grep -oE '\b(\w+)$' > $DIR/product_name.csv<br/>
-        cat $DIR/product_name.csv | cat $DIR/category.csv | pr -mts, $DIR/category.csv $DIR/product_name.csv > $DIR/category_split.csv
-        echo "Selecting relevant columns"<br/>
-        cat $DIR/combined.csv | cat $DIR/category_split.csv | pr -mts, $DIR/combined.csv $DIR/category_split.csv > $DIR/final_clean.csv<br/>
-        csvcut -c 1,2,3,4,5,6,8,9 $DIR/final_clean.csv > $DIR/clean2.csv<br/>
-        (echo 'event_time,event_type,product_id,category_id,brand,price,category,product_name' ; cat $DIR/clean2.csv;) > $DIR/clean3.csv<br/>
-        sed '2d' $DIR/clean3.csv > $DIR/$CLEAN_DATA<br/>
-        rm -f $DIR/combined.csv <br/>
-        rm -f $DIR/category.csv <br/>
-        rm -f $DIR/product_name.csv <br/>
-        rm -f $DIR/category_split.csv <br/>
-        rm -f $DIR/final_clean.csv <br/>
-        rm -f $DIR/clean2.csv <br/>
-        rm -f $DIR/clean3.csv  <br/>
-        echo "Data cleaning has been completed" <br/>
-fi <br/>
+Query: 
+<img src="img/quer5.png" width="1000"/>
 
-5. Display First 10 Data Entries <br/>
-echo "Printing first 10 entries of data..." <br/>
 
-csvlook $DIR/$CLEAN_DATA | head <br/>
+5. Display First 10 Data Entries
 
-echo "Done..." <br/>
+Query:
+<img src="img/quer6.png" width="1000"/>
+
 
 
 ### Guides to "Try it yourself" :)
