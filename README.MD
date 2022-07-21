@@ -87,10 +87,11 @@ Query:
 6. Open data_clean.sh script
 7. Change DIR to be destination directory for the project in your local computer
 
+### Validation
 
 _Please run these test cases after you have successfully setup the project_
 
-_Note:_
+_Setup:_
 * open test.sh script
 * change DIR to be project directory in your local computer (same as step 7 in prev section)
 * on your terminal: bash test.sh
