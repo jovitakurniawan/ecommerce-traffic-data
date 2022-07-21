@@ -37,13 +37,6 @@ Tools
 4. img: screenshot of test cases outputs
 
 
-1. README.MD
-2. data_clean.sh: script to download, clean data
-3. test.sh : script to run test cases
-4. img: screenshot of test cases outputs
-
-
-
 ### Task Breakdown
 
 1. Initialize variable
@@ -69,12 +62,10 @@ Query: Unzip files
 Query: 
 <img src="img/quer5.png" width="1000"/>
 
-
 5. Display First 10 Data Entries
 
 Query:
 <img src="img/quer6.png" width="1000"/>
-
 
 
 ### Guides to "Try it yourself" :)
